@@ -24,7 +24,7 @@ public class Stock
     public final int id;
     public String symbol;
     public BigDecimal curr_price;
-    // Lazy eval so a large string isn't created every time the current price is needed
+    // Lazy eval so a large string isn't created/read from database every time the current price is needed
     public final Lazy<StockData> stock_data;
 
     protected Stock(int id, String symbol, BigDecimal curr_price, int stock_data)
@@ -32,7 +32,7 @@ public class Stock
         this.id = id;
         this.symbol = symbol;
         this.curr_price = curr_price;
-        this.stock_data = Lazy.lazily(() -> StockData.GetStockData(stock_data).orElse(null));
+        this.stock_data = Lazy.lazily(StockData.GetStockData(stock_data).orElse(null));
     }
 
     // Search database for stock entry based on param

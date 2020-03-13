@@ -32,8 +32,12 @@ public class Lazy<T>
         return obj;
     }
 
-    public static <T> Lazy<T> lazily(Supplier<T> supplier)
+    public static <T> Lazy<T> lazily(Supplier<T> toBeEval)
     {
-        return new Lazy<>(supplier);
+        return new Lazy<>(toBeEval);
+    }
+    public static <T> Lazy<T> lazily(T toBeEval)
+    {
+        return new Lazy<>(() -> toBeEval);
     }
 }
